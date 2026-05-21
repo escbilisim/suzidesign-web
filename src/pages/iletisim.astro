@@ -29,8 +29,11 @@ const contactPageSchema = {
 
   <section class="section contact-grid-section">
     <div class="container contact-grid">
-      <form class="contact-form" action="/api/contact" method="POST" novalidate>
+      <form class="contact-form" action="/api/contact" method="POST" novalidate id="contact-form">
         <h2 style="font-style:italic">Form</h2>
+
+        <!-- Status mesajları (JS aktif olduğunda doldurulur) -->
+        <div class="contact-form__status" role="status" aria-live="polite" hidden></div>
 
         <!-- Honeypot (bot tuzağı, kullanıcı görmez) -->
         <div class="hp" aria-hidden="true">
@@ -70,15 +73,13 @@ const contactPageSchema = {
           <textarea name="message" rows="6" required placeholder="Düşündüğünüz model, kumaş, ölçü, tarih vb. ne kadar detaylı yazarsanız, dönüşümüz de o kadar isabetli olur."></textarea>
         </label>
 
-        <button type="submit" class="btn btn--primary">Mesajı gönder</button>
+        <button type="submit" class="btn btn--primary" id="contact-submit">
+          <span class="contact-submit__label">Mesajı gönder</span>
+        </button>
 
         <p class="form-note">
           * işaretli alanlar zorunludur. Gönderdiğiniz bilgiler yalnızca size dönüş yapabilmek için kullanılır.
           Bkz. <a href="/gizlilik">Gizlilik</a>.
-        </p>
-
-        <p class="form-note form-note--phase4">
-          (Form gönderimi Phase 4'te aktive olacak. Şu an iskelet halinde.)
         </p>
       </form>
 
@@ -178,10 +179,53 @@ const contactPageSchema = {
     color: var(--c-text-muted);
     line-height: 1.5;
   }
-  .form-note--phase4 {
-    margin-top: var(--s-2);
+
+  /* Status box */
+  .contact-form__status {
+    padding: var(--s-3) var(--s-4);
+    margin-bottom: var(--s-4);
+    border-radius: var(--r-input);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .contact-form__status[data-state="success"] {
+    background: rgba(34, 139, 34, 0.08);
+    border: 1px solid rgba(34, 139, 34, 0.30);
+    color: #1e6b1e;
+  }
+  .contact-form__status[data-state="error"] {
+    background: rgba(180, 40, 40, 0.06);
+    border: 1px solid rgba(180, 40, 40, 0.30);
+    color: #8b2626;
+  }
+  .contact-form__status[data-state="loading"] {
+    background: rgba(201, 168, 124, 0.10);
+    border: 1px solid rgba(201, 168, 124, 0.40);
     color: var(--c-accent-dark);
-    font-style: italic;
+  }
+
+  /* Button loading state */
+  .contact-form button[disabled] {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+  .contact-submit__label::after {
+    content: '';
+    display: inline-block;
+    width: 14px; height: 14px;
+    margin-left: var(--s-2);
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    vertical-align: -2px;
+    opacity: 0;
+    animation: contact-spin 0.7s linear infinite;
+    transition: opacity 150ms ease;
+  }
+  button[data-loading="true"] .contact-submit__label::after { opacity: 1; }
+  @keyframes contact-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .contact-submit__label::after { animation: none; }
   }
 
   /* Side */
@@ -207,3 +251,52 @@ const contactPageSchema = {
     .contact-form { padding: var(--s-4); }
   }
 </style>
+
+<script>
+  // Progressive enhancement: JS yoksa form normal POST + sunucu cevap sayfası.
+  // JS varsa fetch ile gönder, inline success/error mesajı göster.
+  const form   = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.querySelector<HTMLDivElement>('.contact-form__status');
+  const button = document.getElementById('contact-submit') as HTMLButtonElement | null;
+
+  if (form && status && button) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Reset
+      status.hidden = false;
+      status.dataset.state = 'loading';
+      status.textContent = 'Mesajınız gönderiliyor...';
+      button.disabled = true;
+      button.setAttribute('data-loading', 'true');
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' },
+        });
+
+        const data: { ok: boolean; error?: string } = await res.json().catch(() => ({ ok: false, error: 'Sunucu cevabı okunamadı.' }));
+
+        if (data.ok) {
+          status.dataset.state = 'success';
+          status.textContent = 'Teşekkürler, mesajınız ulaştı. 24 saat içinde dönüş yapacağız.';
+          form.reset();
+          // Form üst noktasına scroll
+          status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          status.dataset.state = 'error';
+          status.textContent = data.error ?? 'Bir sorun oluştu. Lütfen tekrar deneyin.';
+        }
+      } catch (err) {
+        status.dataset.state = 'error';
+        status.textContent = 'Bağlantı hatası. Lütfen birazdan tekrar deneyin.';
+      } finally {
+        button.disabled = false;
+        button.removeAttribute('data-loading');
+      }
+    });
+  }
+</script>

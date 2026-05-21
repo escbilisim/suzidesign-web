@@ -82,9 +82,25 @@ Push is **user-initiated** (locked rule O2). Claude does not push.
 
 ## Environment variables (CF Pages)
 
-| Variable          | Purpose                                                    |
-|-------------------|------------------------------------------------------------|
-| `RESEND_API_KEY`  | Set in CF Pages env (production + preview). Never commit.  |
+Set in **CF Dashboard → suzidesign-web project → Settings → Environment variables**.
+Add to **both** Production and Preview environments.
+
+| Variable          | Required | Default                  | Purpose                                              |
+|-------------------|----------|--------------------------|------------------------------------------------------|
+| `RESEND_API_KEY`  | ✅ Yes   | (no default)             | Resend API key. Never commit.                        |
+| `CONTACT_TO`      | No       | `info@suzidesign.com`    | Where contact form mails are delivered.              |
+| `CONTACT_FROM`    | No       | `form@suzidesign.com`    | "From" address (domain must be verified in Resend).  |
+
+Note: `form@suzidesign.com` doesn't need to be a real mailbox; Resend allows sending from any `@suzidesign.com` address once the domain is verified. Replies use the customer's email via `reply_to` header.
+
+## Pages Functions
+
+`functions/api/contact.ts` is a Cloudflare Pages Function. CF auto-detects `functions/` at the project root; no Astro adapter needed (site stays static).
+
+- Endpoint: `POST /api/contact`
+- Accepts: `multipart/form-data` or `application/json`
+- Returns: `{ ok: true }` or `{ ok: false, error: string }`
+- Spam: honeypot field `website` (empty = OK, filled = silent success)
 
 ## Contact
 
