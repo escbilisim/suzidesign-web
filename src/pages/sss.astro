@@ -53,6 +53,11 @@ const faqPageSchema = {
     acceptedAnswer: { '@type': 'Answer', text: a },
   })),
 };
+
+const breadcrumbs = [
+  { name: 'Ana Sayfa', url: '/' },
+  { name: 'SSS',       url: '/sss' },
+];
 ---
 
 <Layout
@@ -60,6 +65,7 @@ const faqPageSchema = {
   description="Suzi Design kişiye özel couture dikim süreci, ölçü, kumaş, fiyat, kargo, iade ve toptan sipariş hakkında sıkça sorulan sorular."
   lang="tr"
   schema={faqPageSchema}
+  breadcrumbs={breadcrumbs}
 >
   <section class="section--tight faq-hero">
     <div class="container--narrow text-center">

@@ -1,11 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const breadcrumbs = [
+  { name: 'Ana Sayfa', url: '/' },
+  { name: 'Toptan',    url: '/toptan' },
+];
 ---
 
 <Layout
   title="Toptan"
   description="Suzi Design toptan: tesettür butikleri ve online satıcılar için couture koleksiyonumuza özel toptan koşullar. Katalog ve sipariş bilgisi için iletişime geçin."
   lang="tr"
+  breadcrumbs={breadcrumbs}
 >
   <!-- HERO -->
   <section class="section wholesale-hero">

@@ -17,6 +17,11 @@ const aboutPageSchema = {
     ],
   },
 };
+
+const breadcrumbs = [
+  { name: 'Ana Sayfa',  url: '/' },
+  { name: 'Hakkımızda', url: '/hakkimizda' },
+];
 ---
 
 <Layout
@@ -24,6 +29,9 @@ const aboutPageSchema = {
   description="Suzi Design, bir anne ve iki kızının ortak emeğiyle yürüttüğü couture atölyesidir. Hikayemizi, ekibimizi ve atölyemizin felsefesini tanıyın."
   lang="tr"
   schema={aboutPageSchema}
+  breadcrumbs={breadcrumbs}
+  preloadImage="/images/atolye-1600w.webp"
+  preloadImageMedia="(min-width: 769px)"
 >
   <!-- HERO with Atölye.webp background -->
   <section class="about-hero">

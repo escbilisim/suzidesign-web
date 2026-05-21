@@ -1,12 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const updated = '21 Mayıs 2026';
+
+const breadcrumbs = [
+  { name: 'Ana Sayfa', url: '/' },
+  { name: 'Gizlilik',  url: '/gizlilik' },
+];
 ---
 
 <Layout
   title="Gizlilik"
   description="Suzi Design gizlilik bildirimi: iletişim formunda topladığımız bilgiler, çerez kullanımı ve haklarınız hakkında özet."
   lang="tr"
+  breadcrumbs={breadcrumbs}
 >
   <section class="section legal">
     <div class="container--narrow">

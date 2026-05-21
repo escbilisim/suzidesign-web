@@ -117,6 +117,53 @@ async function optimize() {
     stats.generated++;
   }
 
+  // OG default image (1200x630, atolye background + brand overlay)
+  console.log('\n--- OG default ---');
+  const atolyeSrc = resolve(SRC, 'atolye-2000w.webp');
+  if (existsSync(atolyeSrc)) {
+    const ogOut = resolve(ROOT, 'public/og-default.png');
+
+    // Brand text overlay (SVG composite)
+    const overlaySvg = Buffer.from(`<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="rgba(10,10,10,0.45)"/>
+          <stop offset="0.6" stop-color="rgba(10,10,10,0.75)"/>
+          <stop offset="1" stop-color="rgba(10,10,10,0.92)"/>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="630" fill="url(#grad)"/>
+      <text x="600" y="280" text-anchor="middle"
+            font-family="Georgia, 'Cormorant Garamond', serif"
+            font-size="84" font-style="italic" fill="#ffffff" font-weight="600">
+        Suzi Design
+      </text>
+      <line x1="500" y1="320" x2="700" y2="320" stroke="#C9A87C" stroke-width="2"/>
+      <text x="600" y="390" text-anchor="middle"
+            font-family="Georgia, 'Cormorant Garamond', serif"
+            font-size="48" font-style="italic" fill="#E5D4B5">
+        Couture, kişiye özel.
+      </text>
+      <text x="600" y="500" text-anchor="middle"
+            font-family="-apple-system, 'Segoe UI', Inter, sans-serif"
+            font-size="22" letter-spacing="6" fill="rgba(255,255,255,0.72)">
+        ATÖLYE  ·  KİŞİYE ÖZEL DİKİM  ·  PREMIUM KUMAŞ
+      </text>
+    </svg>`);
+
+    await sharp(atolyeSrc)
+      .resize({ width: 1200, height: 630, fit: 'cover', position: 'center' })
+      .composite([{ input: overlaySvg, top: 0, left: 0 }])
+      .png({ quality: 90 })
+      .toFile(ogOut);
+
+    console.log(`[ok]   public/og-default.png (1200x630)`);
+    stats.generated++;
+  } else {
+    console.warn(`[skip] og-default: atolye-2000w.webp bulunamadı (önce ana varyantlar üretilmeli)`);
+    stats.skipped++;
+  }
+
   console.log('\n--- Summary ---');
   console.log(`Generated: ${stats.generated}`);
   console.log(`Skipped:   ${stats.skipped}`);

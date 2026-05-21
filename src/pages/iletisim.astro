@@ -8,6 +8,11 @@ const contactPageSchema = {
   url: 'https://suzidesign.com/iletisim',
   inLanguage: 'tr-TR',
 };
+
+const breadcrumbs = [
+  { name: 'Ana Sayfa', url: '/' },
+  { name: 'İletişim',  url: '/iletisim' },
+];
 ---
 
 <Layout
@@ -15,6 +20,7 @@ const contactPageSchema = {
   description="Suzi Design ile iletişime geçin. Kişiye özel dikim, toptan sipariş ve genel sorularınız için 24 saat içinde dönüş yapıyoruz."
   lang="tr"
   schema={contactPageSchema}
+  breadcrumbs={breadcrumbs}
 >
   <section class="section contact-hero">
     <div class="container--narrow text-center">

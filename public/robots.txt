@@ -1,4 +1,49 @@
+# Suzi Design - https://suzidesign.com
+
+# Sitemap
+Sitemap: https://suzidesign.com/sitemap-index.xml
+
+# Ana site
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /urunler
+Disallow: /en/products
 
-Sitemap: https://suzidesign.com/sitemap-index.xml
+# AI botları (S15 - AI Overviews + citation) — /urunler dışında
+# /urunler Curator.io ile çalışıyor, free quota'yı korumak için bot'ları engelliyoruz.
+
+User-agent: GPTBot
+Allow: /
+Disallow: /urunler
+Disallow: /en/products
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /urunler
+Disallow: /en/products
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /urunler
+Disallow: /en/products
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /urunler
+Disallow: /en/products
+
+User-agent: CCBot
+Allow: /
+Disallow: /urunler
+Disallow: /en/products
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /urunler
+Disallow: /en/products
+
+User-agent: cohere-ai
+Allow: /
+Disallow: /urunler
+Disallow: /en/products

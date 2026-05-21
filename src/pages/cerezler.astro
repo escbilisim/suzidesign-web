@@ -1,12 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const updated = '21 Mayıs 2026';
+
+const breadcrumbs = [
+  { name: 'Ana Sayfa', url: '/' },
+  { name: 'Çerezler',  url: '/cerezler' },
+];
 ---
 
 <Layout
   title="Çerezler"
   description="Suzi Design çerez politikası: hangi sayfalarda hangi 3rd-party servisler çerez kullanır."
   lang="tr"
+  breadcrumbs={breadcrumbs}
 >
   <section class="section legal">
     <div class="container--narrow">

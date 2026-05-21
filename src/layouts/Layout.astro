@@ -3,35 +3,53 @@
  * Suzi Design - Master Layout
  * - <html lang> doğru dilde
  * - Self-host font preload (C5)
- * - OG / Twitter meta
+ * - OG + Twitter meta (S4)
  * - hreflang TR/EN (B3)
- * - Schema.org Organization JSON-LD
+ * - Schema.org Organization + WebSite + opsiyonel BreadcrumbList (S5)
  * - Skip link (a11y)
+ * - LCP image preload slot (sayfaya özel)
  */
 
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
+interface BreadcrumbItem {
+  name: string;
+  url: string; // root-relative ya da absolute
+}
+
 interface Props {
   title: string;
   description: string;
   lang?: 'tr' | 'en';
-  /** OG image URL (absolute or root-relative). Default: /og/default.png */
+  /** OG image URL (absolute or root-relative). Default: /og-default.png */
   ogImage?: string;
   /** canonical absolute URL. Eğer geçilmezse Astro.url üzerinden hesaplanır. */
   canonical?: string;
   /** Schema.org JSON-LD ekstra (sayfa-özgü, örn. FAQPage, AboutPage) */
   schema?: object | object[];
+  /** BreadcrumbList için (S5). Anasayfa için boş, iç sayfalar için zorunlu. */
+  breadcrumbs?: BreadcrumbItem[];
+  /** LCP imajı için preload URL'i (anasayfa hero, hakkimizda hero gibi) */
+  preloadImage?: string;
+  /** LCP preload imajı için media query (mobile/desktop ayrı set verilirse) */
+  preloadImageMedia?: string;
+  /** Meta robots override. Default: 'index, follow'. /urunler için 'noindex, nofollow' */
+  robots?: string;
 }
 
 const {
   title,
   description,
   lang = 'tr',
-  ogImage = '/images/og-default.png',
+  ogImage = '/og-default.png',
   canonical,
   schema,
+  breadcrumbs,
+  preloadImage,
+  preloadImageMedia,
+  robots = 'index, follow',
 } = Astro.props;
 
 const siteUrl = 'https://suzidesign.com';
@@ -39,7 +57,7 @@ const currentPath = Astro.url.pathname;
 const canonicalUrl = canonical ?? new URL(currentPath, siteUrl).toString();
 const ogImageAbs = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).toString();
 
-// hreflang alternatif: TR ↔ EN
+// hreflang alternatif: TR vs EN
 const trPath = lang === 'en' ? currentPath.replace(/^\/en/, '') || '/' : currentPath;
 const enPath = lang === 'tr' ? '/en' + (currentPath === '/' ? '' : currentPath) : currentPath;
 
@@ -49,9 +67,15 @@ const titleFull = title.includes('Suzi Design') ? title : `${title} · Suzi Desi
 const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': `${siteUrl}/#organization`,
   name: 'Suzi Design',
   url: siteUrl,
-  logo: `${siteUrl}/images/logo.png`,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${siteUrl}/images/logo-512w.webp`,
+    width: 512,
+    height: 512,
+  },
   description: 'Premium kumaş ve el işçiliğiyle, kişiye özel kalıplarla dikilen couture tesettür giyim; bireysel ve toptan.',
   sameAs: ['https://instagram.com/suzidesignn'],
   founder: [
@@ -60,10 +84,46 @@ const orgSchema = {
     { '@type': 'Person', name: 'Sultan Köylü' },
   ],
   foundingDate: '2026',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+90-535-208-25-60',
+    contactType: 'customer service',
+    availableLanguage: ['Turkish', 'English'],
+    areaServed: ['TR', 'SA', 'AE', 'KW', 'QA', 'DE', 'NL', 'FR', 'AT', 'BE'],
+  },
   inLanguage: [lang === 'tr' ? 'tr-TR' : 'en-US'],
 };
 
-const schemaList = [orgSchema, ...(Array.isArray(schema) ? schema : schema ? [schema] : [])];
+// WebSite schema (her sayfada, S5)
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  url: siteUrl,
+  name: 'Suzi Design',
+  description: 'Couture, kişiye özel.',
+  publisher: { '@id': `${siteUrl}/#organization` },
+  inLanguage: [lang === 'tr' ? 'tr-TR' : 'en-US'],
+};
+
+// BreadcrumbList schema (iç sayfalar)
+const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((item, idx) => ({
+    '@type': 'ListItem',
+    position: idx + 1,
+    name: item.name,
+    item: item.url.startsWith('http') ? item.url : new URL(item.url, siteUrl).toString(),
+  })),
+} : null;
+
+const schemaList = [
+  orgSchema,
+  websiteSchema,
+  ...(breadcrumbSchema ? [breadcrumbSchema] : []),
+  ...(Array.isArray(schema) ? schema : schema ? [schema] : []),
+];
 ---
 
 <!doctype html>
@@ -77,9 +137,10 @@ const schemaList = [orgSchema, ...(Array.isArray(schema) ? schema : schema ? [sc
 
   <title>{titleFull}</title>
   <meta name="description" content={description} />
+  <meta name="robots" content={robots} />
   <link rel="canonical" href={canonicalUrl} />
 
-  <!-- hreflang TR ↔ EN (B3) -->
+  <!-- hreflang TR + EN (B3) -->
   <link rel="alternate" hreflang="tr-TR" href={new URL(trPath, siteUrl).toString()} />
   <link rel="alternate" hreflang="en"    href={new URL(enPath, siteUrl).toString()} />
   <link rel="alternate" hreflang="x-default" href={new URL(trPath, siteUrl).toString()} />
@@ -88,17 +149,32 @@ const schemaList = [orgSchema, ...(Array.isArray(schema) ? schema : schema ? [sc
   <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/cormorant-garamond-600.woff2" as="font" type="font/woff2" crossorigin />
 
-  <!-- Favicon -->
+  <!-- LCP image preload (sayfa-özgü, C3) -->
+  {preloadImage && (
+    <link
+      rel="preload"
+      as="image"
+      href={preloadImage}
+      fetchpriority="high"
+      media={preloadImageMedia}
+    />
+  )}
+
+  <!-- Favicon + manifest -->
   <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192" />
   <link rel="icon" type="image/png" href="/icon-512.png" sizes="512x512" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
+  <link rel="author" href="/humans.txt" />
 
-  <!-- Open Graph -->
+  <!-- Open Graph (S4) -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content={titleFull} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={ogImageAbs} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Suzi Design - couture, kişiye özel" />
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:site_name" content="Suzi Design" />
   <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_US'} />

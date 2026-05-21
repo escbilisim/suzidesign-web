@@ -1,11 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Ürünler · Suzi Design',
+  url: 'https://suzidesign.com/urunler',
+  inLanguage: 'tr-TR',
+  about: { '@type': 'Organization', name: 'Suzi Design' },
+};
+
+const breadcrumbs = [
+  { name: 'Ana Sayfa', url: '/' },
+  { name: 'Ürünler',   url: '/urunler' },
+];
 ---
 
 <Layout
   title="Ürünler"
   description="Suzi Design atölyesinden parçalar. Couture made-to-measure: her parça kişiye özel kalıpla, premium kumaşla, el işçiliğiyle dikilir."
   lang="tr"
+  schema={collectionPageSchema}
+  breadcrumbs={breadcrumbs}
+  robots="noindex, nofollow"
 >
   <!-- HERO -->
   <section class="section--tight products-hero">
