@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="404 · Sayfa bulunamadı"
+  description="Aradığınız sayfa bulunamadı. Aşağıdaki bağlantılarla devam edebilirsiniz."
+  lang="tr"
+>
+  <section class="section not-found">
+    <div class="container--narrow text-center">
+      <span class="eyebrow">404</span>
+      <h1>Bu sayfayı bulamadık.</h1>
+      <p class="lead">
+        Aradığınız sayfa taşınmış ya da artık mevcut değil. Aşağıdaki bağlantılarla
+        atölyemize giden yolu bulabilirsiniz.
+      </p>
+
+      <ul class="quick-links">
+        <li><a href="/">Ana sayfa</a></li>
+        <li><a href="/urunler">Ürünler</a></li>
+        <li><a href="/hakkimizda">Hakkımızda</a></li>
+        <li><a href="/sss">SSS</a></li>
+        <li><a href="/iletisim">İletişim</a></li>
+      </ul>
+
+      <div class="not-found__cta">
+        <a href="/iletisim" class="btn btn--primary">Bize ulaşın</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .text-center { text-align: center; }
+  .not-found { padding: var(--s-9) 0; }
+  .not-found h1 { font-style: italic; margin-bottom: var(--s-4); }
+  .not-found .lead { max-width: 540px; margin-inline: auto var(--s-6); }
+
+  .quick-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto var(--s-6);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s-4);
+    max-width: 600px;
+  }
+  .quick-links a {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-primary);
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-btn);
+    transition: all var(--t-fast);
+  }
+  .quick-links a:hover {
+    border-color: var(--c-accent);
+    color: var(--c-accent-dark);
+  }
+</style>

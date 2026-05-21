@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+const updated = '21 Mayıs 2026';
+---
+
+<Layout
+  title="Gizlilik"
+  description="Suzi Design gizlilik bildirimi: iletişim formunda topladığımız bilgiler, çerez kullanımı ve haklarınız hakkında özet."
+  lang="tr"
+>
+  <section class="section legal">
+    <div class="container--narrow">
+      <span class="eyebrow">Yasal</span>
+      <h1>Gizlilik</h1>
+      <p class="lead">Son güncelleme: {updated}.</p>
+
+      <h2>Topladığımız bilgiler</h2>
+      <p>
+        Sitede yalnızca iletişim formunu doldurduğunuzda kişisel bilgi alıyoruz: adınız,
+        e-postanız, isteğe bağlı telefon ve mesajınız. Bu bilgileri yalnızca size dönüş
+        yapmak ve görüşme sürecini yürütmek için kullanıyoruz.
+      </p>
+
+      <h2>Saklama süresi</h2>
+      <p>
+        İletişim form mesajları, görüşme süreci boyunca info@suzidesign.com gelen kutusunda
+        saklanır. Görüşmeniz tamamlandıktan ve dosyanız kapandıktan sonra makul bir süre
+        içinde arşivlenir.
+      </p>
+
+      <h2>Üçüncü taraf hizmetler</h2>
+      <p>
+        <strong>Curator.io:</strong> /urunler sayfasında Instagram feed'imizi göstermek için
+        Curator.io 3rd-party widget kullanıyoruz. Bu sayfada Curator.io ve Instagram CDN'i
+        çerez ve teknik tanımlayıcılar kullanabilir. Detay: <a href="/cerezler">Çerezler</a>.
+      </p>
+      <p>
+        <strong>Cloudflare:</strong> Site barındırması ve teslim için Cloudflare kullanıyoruz.
+        Cloudflare standart sunucu logları (IP, kullanıcı ajanı, talep zaman damgası) tutar.
+      </p>
+      <p>
+        <strong>Cloudflare Web Analytics:</strong> Cookieless analitik kullanıyoruz; çerez
+        bırakmaz, kişiyi takip etmez, sadece toplam sayfa görüntüleme ve genel performans
+        verisini sağlar.
+      </p>
+      <p>
+        <strong>Resend:</strong> İletişim formundan gelen mesajlar Resend üzerinden bize
+        ulaştırılır. Resend, mesaj iletimi için e-posta meta verisi (gönderim zamanı, başarı
+        durumu) tutar.
+      </p>
+
+      <h2>Haklarınız</h2>
+      <p>
+        Bizimle paylaştığınız bilgilerin silinmesini, düzeltilmesini ya da işlenmesinin
+        durdurulmasını istemekte özgürsünüz. Bu talepler için iletişim formundan ulaşın;
+        en geç 30 gün içinde dönüş yapıyoruz.
+      </p>
+
+      <h2>İletişim</h2>
+      <p>
+        Gizlilik veya veri kullanımı hakkında sorularınız için: <a href="/iletisim">iletişim formu</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal { padding-top: var(--s-7); }
+  .legal h1 { font-style: italic; margin-bottom: var(--s-3); }
+  .legal h2 {
+    font-style: italic;
+    margin-top: var(--s-6);
+    margin-bottom: var(--s-3);
+    font-size: 1.625rem;
+  }
+  .legal p { line-height: 1.75; }
+</style>

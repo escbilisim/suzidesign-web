@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Ürünler"
+  description="Suzi Design atölyesinden parçalar. Couture made-to-measure: her parça kişiye özel kalıpla, premium kumaşla, el işçiliğiyle dikilir."
+  lang="tr"
+>
+  <!-- HERO -->
+  <section class="section--tight products-hero">
+    <div class="container--narrow text-center">
+      <span class="eyebrow">Koleksiyon</span>
+      <h1>Atölyemizden parçalar</h1>
+      <p class="lead">
+        Aşağıdaki parçalar Instagram hesabımızdan canlı yayınlanıyor. Beğendiğiniz bir
+        modeli kişiye özel olarak dikmemizi istiyorsanız, görüşme talep edebilirsiniz.
+      </p>
+    </div>
+  </section>
+
+  <!-- CURATOR PLACEHOLDER -->
+  <!--
+    Sprint 2.3'te buraya Curator.io feed embed kodu gelecek.
+    Format (örnek):
+      <div id="curator-feed-default-feed-layout"><a href="https://curator.io" target="_blank">...</a></div>
+      <script type="text/javascript">
+        (function(){
+          var i,e,d=document,s="script";i=d.createElement("script");i.async=1;
+          i.src="https://cdn.curator.io/published/<UUID>.js";
+          e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i,e);
+        })();
+      </script>
+    Locked rules B2: Curator.io 3rd-party JS sadece bu sayfada yüklenir.
+  -->
+  <section class="section">
+    <div class="container">
+      <div id="curator-feed-default-feed-layout" class="curator-placeholder">
+        <div class="curator-placeholder__inner">
+          <span class="eyebrow">Yakında</span>
+          <h3 style="font-style:italic">Instagram feed bağlantısı</h3>
+          <p>
+            Curator.io üzerinden Instagram <a href="https://instagram.com/suzidesignn" target="_blank" rel="noopener noreferrer">@suzidesignn</a>
+            feed'i buraya yansıyacak. Hesap doğrulama sonrası aktif olacak.
+          </p>
+          <p class="curator-placeholder__hint">
+            (Bu kısım Sprint 2.3 ve Curator hesap doğrulamasından sonra otomatik dolar.)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section section--dark final-cta">
+    <div class="container--narrow">
+      <span class="eyebrow">Beğendiniz mi?</span>
+      <h2>Size özel dikilen halini konuşalım.</h2>
+      <p class="lead">Beğendiğiniz bir modeli, kendi ölçülerinize ve tercih ettiğiniz kumaşa göre dikiyoruz.</p>
+      <a href="/iletisim" class="btn btn--gold">Görüşme talep et</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .text-center { text-align: center; }
+  .products-hero { padding-top: var(--s-7); padding-bottom: var(--s-5); }
+  .products-hero h1 { font-style: italic; }
+
+  .curator-placeholder {
+    min-height: 400px;
+    display: grid;
+    place-items: center;
+    background: var(--c-cream);
+    border: 2px dashed var(--c-accent);
+    border-radius: var(--r-card);
+    padding: var(--s-6);
+  }
+  .curator-placeholder__inner { text-align: center; max-width: 480px; }
+  .curator-placeholder__inner h3 { color: var(--c-accent-dark); }
+  .curator-placeholder__hint {
+    font-size: 0.875rem;
+    color: var(--c-text-muted);
+    margin-top: var(--s-4);
+    font-style: italic;
+  }
+
+  .final-cta { text-align: center; }
+  .final-cta h2 { font-style: italic; max-width: 720px; margin-inline: auto var(--s-3); }
+  .final-cta .lead { max-width: 600px; margin-inline: auto var(--s-5); }
+</style>

@@ -1,0 +1,282 @@
+/* ============================================================
+   Suzi Design — Brand Tokens & Global Styles
+   ============================================================
+   - Self-host fonts (C5): Cormorant Garamond (heading) + Inter (body)
+   - Brand: Primary #0A0A0A, Accent #C9A87C şampanya altın
+   - TR primary, EN secondary (i18n)
+   - Em-dash YASAK TR'de (C8 / B4)
+   ============================================================ */
+
+/* ---- Self-host fonts (C5 — Google Fonts CDN YASAK) ---- */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-var.woff2') format('woff2-variations'),
+       url('/fonts/inter-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-garamond-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-garamond-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-garamond-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* ---- Design tokens ---- */
+
+:root {
+  /* Renkler */
+  --c-primary:        #0A0A0A;  /* koyu siyah */
+  --c-primary-mid:    #2A2A2A;  /* yumuşak siyah */
+  --c-primary-deep:   #000000;  /* saf siyah, kontrast */
+
+  --c-accent:         #C9A87C;  /* şampanya altın */
+  --c-accent-light:   #E5D4B5;  /* açık şampanya */
+  --c-accent-dark:    #8B6F3F;  /* koyu şampanya, WCAG AA */
+  --c-accent-text:    #8B6F3F;  /* küçük metin link rengi */
+
+  --c-white:          #ffffff;
+  --c-cream:          #F5F1EA;  /* kart zemin / soft section */
+
+  --c-text:           var(--c-primary);
+  --c-text-muted:     rgba(10, 10, 10, 0.65);
+  --c-text-light:     rgba(255, 255, 255, 0.92);
+  --c-text-light-muted: rgba(255, 255, 255, 0.65);
+
+  --c-border:         rgba(10, 10, 10, 0.08);
+  --c-border-light:   rgba(255, 255, 255, 0.15);
+
+  /* Tipografi */
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --font-sans:  'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  /* Spacing — 8px tabanlı */
+  --s-1: 0.25rem;  /*  4px */
+  --s-2: 0.5rem;   /*  8px */
+  --s-3: 1rem;     /* 16px */
+  --s-4: 1.5rem;   /* 24px */
+  --s-5: 2rem;     /* 32px */
+  --s-6: 3rem;     /* 48px */
+  --s-7: 4rem;     /* 64px */
+  --s-8: 6rem;     /* 96px */
+  --s-9: 8rem;     /* 128px */
+
+  /* Radii */
+  --r-btn:   2px;
+  --r-card:  4px;
+  --r-input: 2px;
+  --r-lg:    8px;
+
+  /* Shadows */
+  --sh-soft:   0 2px 8px  rgba(0, 0, 0, 0.04);
+  --sh-mid:    0 4px 16px rgba(0, 0, 0, 0.10);
+  --sh-strong: 0 8px 24px rgba(0, 0, 0, 0.18);
+  --sh-gold:   0 4px 16px rgba(201, 168, 124, 0.20);
+
+  /* Transitions */
+  --t-fast: 150ms ease;
+  --t:      250ms ease;
+  --t-slow: 400ms ease;
+
+  /* Layout */
+  --max-w:        1280px;
+  --max-w-narrow: 760px;
+  --max-w-wide:   1440px;
+
+  /* Header */
+  --header-h: 88px;
+}
+
+/* ---- Reset + base ---- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--c-text);
+  background: var(--c-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img, picture, svg, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--c-accent-text);
+  text-decoration: none;
+  transition: color var(--t-fast);
+}
+a:hover { color: var(--c-primary); }
+
+button { font: inherit; cursor: pointer; }
+
+/* ---- Typography scale ---- */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--s-3);
+  color: var(--c-primary);
+}
+
+h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 600; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.875rem, 3.5vw, 2.75rem); }
+h3 { font-size: clamp(1.5rem, 2.5vw, 1.875rem); }
+h4 { font-size: 1.375rem; }
+h5 { font-size: 1.125rem; font-family: var(--font-sans); font-weight: 600; letter-spacing: 0; }
+h6 { font-size: 1rem;     font-family: var(--font-sans); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+
+p { margin: 0 0 var(--s-3); }
+
+.lead {
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--c-text-muted);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-accent-dark);
+  margin-bottom: var(--s-2);
+}
+
+/* ---- Layout helpers ---- */
+
+.container       { width: 100%; max-width: var(--max-w);        margin-inline: auto; padding-inline: var(--s-4); }
+.container--narrow { width: 100%; max-width: var(--max-w-narrow); margin-inline: auto; padding-inline: var(--s-4); }
+.container--wide   { width: 100%; max-width: var(--max-w-wide);   margin-inline: auto; padding-inline: var(--s-4); }
+
+.section { padding-block: clamp(var(--s-5), 4.5vw, var(--s-7)); }
+.section--tight { padding-block: clamp(var(--s-4), 3vw, var(--s-5)); }
+.section--cream { background: var(--c-cream); }
+.section--dark  { background: var(--c-primary); color: var(--c-text-light); }
+
+.section--dark h1, .section--dark h2, .section--dark h3,
+.section--dark h4, .section--dark h5, .section--dark h6 { color: var(--c-white); }
+.section--dark .lead { color: var(--c-text-light-muted); }
+.section--dark a:not(.btn) { color: var(--c-accent-light); }
+.section--dark a:not(.btn):hover { color: var(--c-accent); }
+
+/* ---- Buttons ---- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  padding: 0.95rem 1.875rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--r-btn);
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: all var(--t);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background: var(--c-primary);
+  color: var(--c-white);
+  border-color: var(--c-primary);
+}
+.btn--primary:hover { background: var(--c-primary-mid); color: var(--c-white); }
+
+.btn--gold {
+  background: var(--c-accent);
+  color: var(--c-primary);
+  border-color: var(--c-accent);
+}
+.btn--gold:hover { background: var(--c-accent-dark); color: var(--c-white); border-color: var(--c-accent-dark); }
+
+.btn--outline {
+  background: transparent;
+  color: var(--c-primary);
+  border-color: var(--c-primary);
+}
+.btn--outline:hover { background: var(--c-primary); color: var(--c-white); }
+
+.section--dark .btn--outline {
+  color: var(--c-white);
+  border-color: var(--c-white);
+}
+.section--dark .btn--outline:hover { background: var(--c-white); color: var(--c-primary); }
+
+/* ---- Skip link (a11y) ---- */
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--s-3);
+  background: var(--c-primary);
+  color: var(--c-white);
+  padding: var(--s-2) var(--s-3);
+  z-index: 1000;
+  border-radius: var(--r-btn);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.skip-link:focus { top: var(--s-3); }
+
+/* ---- Focus visible (a11y) ---- */
+
+:focus-visible {
+  outline: 2px solid var(--c-accent-dark);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---- Reduced motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

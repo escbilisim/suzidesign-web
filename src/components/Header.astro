@@ -1,0 +1,298 @@
+---
+/**
+ * Suzi Design - Header
+ * Layout: split navigation (left | center logo | right)
+ * Couture standardı (Chanel / Dior tarzı).
+ * Mobile: hamburger menu, logo merkezde kalır.
+ */
+
+interface Props {
+  lang?: 'tr' | 'en';
+  currentPath?: string;
+}
+
+const { lang = 'tr', currentPath = '/' } = Astro.props;
+
+const t = {
+  tr: {
+    home: 'Ana Sayfa',
+    products: 'Ürünler',
+    wholesale: 'Toptan',
+    about: 'Hakkımızda',
+    faq: 'SSS',
+    contact: 'İletişim',
+    menuToggle: 'Menüyü aç/kapa',
+    langSwitch: 'EN',
+    langSwitchTitle: 'Switch to English',
+  },
+  en: {
+    home: 'Home',
+    products: 'Products',
+    wholesale: 'Wholesale',
+    about: 'About',
+    faq: 'FAQ',
+    contact: 'Contact',
+    menuToggle: 'Toggle menu',
+    langSwitch: 'TR',
+    langSwitchTitle: 'Türkçeye geç',
+  },
+}[lang];
+
+const base = lang === 'tr' ? '' : '/en';
+const switchPath = lang === 'tr' ? '/en' + (currentPath === '/' ? '' : currentPath) : currentPath.replace(/^\/en/, '') || '/';
+
+const leftNav = lang === 'tr'
+  ? [
+      { href: `${base}/urunler`, label: t.products },
+      { href: `${base}/toptan`,  label: t.wholesale },
+      { href: `${base}/sss`,     label: t.faq },
+    ]
+  : [
+      { href: `${base}/products`,  label: t.products },
+      { href: `${base}/wholesale`, label: t.wholesale },
+      { href: `${base}/faq`,       label: t.faq },
+    ];
+
+const rightNav = lang === 'tr'
+  ? [
+      { href: `${base}/hakkimizda`, label: t.about },
+      { href: `${base}/iletisim`,   label: t.contact },
+    ]
+  : [
+      { href: `${base}/about`,   label: t.about },
+      { href: `${base}/contact`, label: t.contact },
+    ];
+
+const homeHref = lang === 'tr' ? '/' : '/en/';
+---
+
+<header class="site-header" role="banner">
+  <div class="container--wide site-header__inner">
+    <!-- Sol navigasyon (desktop) -->
+    <nav class="site-nav site-nav--left" aria-label={lang === 'tr' ? 'Sol menü' : 'Left menu'}>
+      <ul>
+        {leftNav.map(item => (
+          <li><a href={item.href} class:list={['site-nav__link', { 'is-active': currentPath.startsWith(item.href) && item.href !== '/' }]}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Merkez logo -->
+    <a href={homeHref} class="site-header__logo" aria-label={lang === 'tr' ? 'Suzi Design ana sayfa' : 'Suzi Design home'}>
+      <img
+        src="/images/logo-160w.webp"
+        srcset="/images/logo-80w.webp 80w, /images/logo-128w.webp 128w, /images/logo-160w.webp 160w, /images/logo-192w.webp 192w"
+        sizes="(max-width: 600px) 56px, 80px"
+        alt="Suzi Design"
+        width="80" height="80"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </a>
+
+    <!-- Sağ navigasyon (desktop) -->
+    <nav class="site-nav site-nav--right" aria-label={lang === 'tr' ? 'Sağ menü' : 'Right menu'}>
+      <ul>
+        {rightNav.map(item => (
+          <li><a href={item.href} class:list={['site-nav__link', { 'is-active': currentPath.startsWith(item.href) }]}>{item.label}</a></li>
+        ))}
+        <li>
+          <a href={switchPath} class="site-nav__lang" title={t.langSwitchTitle} hreflang={lang === 'tr' ? 'en' : 'tr'}>
+            {t.langSwitch}
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Mobile hamburger toggle -->
+    <button
+      class="site-header__toggle"
+      aria-label={t.menuToggle}
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      type="button"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <nav id="mobile-nav" class="mobile-nav" aria-label={lang === 'tr' ? 'Mobil menü' : 'Mobile menu'} hidden>
+    <ul>
+      <li><a href={homeHref} class="mobile-nav__link">{t.home}</a></li>
+      {leftNav.map(item  => <li><a href={item.href}  class="mobile-nav__link">{item.label}</a></li>)}
+      {rightNav.map(item => <li><a href={item.href} class="mobile-nav__link">{item.label}</a></li>)}
+      <li>
+        <a href={switchPath} class="mobile-nav__link mobile-nav__lang" hreflang={lang === 'tr' ? 'en' : 'tr'}>
+          {t.langSwitch}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    min-height: var(--header-h);
+    gap: var(--s-3);
+  }
+
+  .site-nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--s-5);
+  }
+  .site-nav--left  ul { justify-content: flex-end;  padding-right: var(--s-5); }
+  .site-nav--right ul { justify-content: flex-start; padding-left:  var(--s-5); }
+
+  .site-nav__link {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-primary);
+    position: relative;
+    padding: var(--s-2) 0;
+    transition: color var(--t-fast);
+  }
+  .site-nav__link:hover { color: var(--c-accent-dark); }
+  .site-nav__link.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--c-accent);
+  }
+
+  .site-nav__lang {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--c-primary);
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-btn);
+    transition: all var(--t-fast);
+  }
+  .site-nav__lang:hover {
+    border-color: var(--c-accent);
+    color: var(--c-accent-dark);
+    background: rgba(201, 168, 124, 0.06);
+  }
+
+  .site-header__logo {
+    display: block;
+    flex-shrink: 0;
+  }
+  .site-header__logo img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    transition: transform var(--t);
+  }
+  .site-header__logo:hover img { transform: scale(1.04); }
+
+  /* Mobile toggle */
+  .site-header__toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    padding: var(--s-2);
+    position: absolute;
+    right: var(--s-3);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .site-header__toggle span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--c-primary);
+    margin: 5px 0;
+    transition: all var(--t);
+  }
+  .site-header__toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .site-header__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .site-header__toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .mobile-nav {
+    display: none;
+    border-top: 1px solid var(--c-border);
+    background: var(--c-white);
+    padding: var(--s-4) 0;
+  }
+  .mobile-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .mobile-nav__link {
+    display: block;
+    padding: var(--s-3) var(--s-4);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-primary);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .mobile-nav__lang {
+    margin-top: var(--s-2);
+    text-align: center;
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-btn);
+    margin-inline: var(--s-4);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .site-header__inner { grid-template-columns: 1fr auto 1fr; }
+    .site-nav { display: none; }
+    .site-header__toggle { display: block; }
+    .site-header__inner { position: relative; }
+    .mobile-nav[aria-hidden="false"] { display: block; }
+  }
+</style>
+
+<script>
+  // Mobile menu toggle - vanilla, no framework
+  const toggle = document.querySelector<HTMLButtonElement>('.site-header__toggle');
+  const drawer = document.getElementById('mobile-nav');
+
+  if (toggle && drawer) {
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      if (!open) {
+        drawer.removeAttribute('hidden');
+        drawer.setAttribute('aria-hidden', 'false');
+      } else {
+        drawer.setAttribute('aria-hidden', 'true');
+        drawer.setAttribute('hidden', '');
+      }
+    });
+  }
+</script>

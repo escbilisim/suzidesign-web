@@ -1,0 +1,20 @@
+/* TEAM */
+
+Brand:    Suzi Design
+Atölye:   Merve Köylü, Hafize Köylü, Sultan Köylü
+Site:     https://suzidesign.com
+Instagram: @suzidesignn
+
+/* DEVELOPER */
+
+Developer: Murat Özsaygılı (ESC Bilişim)
+Contact:   info@suzidesign.com
+From:      Istanbul, Türkiye
+
+/* SITE */
+
+Stack:     Astro 6 (static) · Cloudflare Pages · Pages Functions · Resend · Curator.io
+Fonts:     Cormorant Garamond, Inter Variable (self-hosted woff2)
+Analytics: Cloudflare Web Analytics (cookieless)
+
+Last update: 2026-05-21

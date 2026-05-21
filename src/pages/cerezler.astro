@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+const updated = '21 Mayıs 2026';
+---
+
+<Layout
+  title="Çerezler"
+  description="Suzi Design çerez politikası: hangi sayfalarda hangi 3rd-party servisler çerez kullanır."
+  lang="tr"
+>
+  <section class="section legal">
+    <div class="container--narrow">
+      <span class="eyebrow">Yasal</span>
+      <h1>Çerezler</h1>
+      <p class="lead">Son güncelleme: {updated}.</p>
+
+      <h2>Kendi çerezimiz</h2>
+      <p>
+        Suzi Design olarak kendi tarafımızdan çerez bırakmıyoruz. Analitik için
+        <strong>Cloudflare Web Analytics</strong> kullanıyoruz; bu hizmet cookieless
+        çalışır, kişisel takip yapmaz.
+      </p>
+
+      <h2>3rd-party çerezler · /urunler sayfası</h2>
+      <p>
+        Ürün galerisi sayfamızda Instagram feed'imizi göstermek için
+        <strong>Curator.io</strong> widget'ı kullanıyoruz. Bu widget yüklendiğinde
+        aşağıdaki çerez/teknik tanımlayıcılar bırakılabilir:
+      </p>
+      <ul>
+        <li><strong>Curator.io:</strong> oturum tanımlayıcısı (widget'ın stabil çalışması için)</li>
+        <li><strong>Instagram CDN (cdninstagram.com):</strong> imaj yükleme ve önbellekleme için teknik çerezler</li>
+      </ul>
+      <p>
+        Bu çerezler Suzi Design tarafından kontrol edilmez. Detay için Curator.io ve
+        Instagram'ın kendi çerez politikalarına bakabilirsiniz.
+      </p>
+
+      <h2>Çerezleri nasıl yönetebilirsiniz?</h2>
+      <p>
+        Tarayıcı ayarlarınızdan çerezleri tamamen engelleyebilir veya site bazında reddedebilirsiniz.
+        Engellerseniz /urunler sayfasındaki Instagram feed'i görüntülenmeyebilir; sitenin geri
+        kalan tüm fonksiyonları normal çalışır.
+      </p>
+
+      <h2>Sunucu logları</h2>
+      <p>
+        Cloudflare, standart sunucu logları (IP adresi, kullanıcı ajanı, talep zaman damgası)
+        tutar. Bu loglar güvenlik, performans takibi ve hata teşhisi için makul bir süre saklanır.
+      </p>
+
+      <h2>İletişim</h2>
+      <p>
+        Çerez kullanımı hakkında sorularınız için: <a href="/iletisim">iletişim formu</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal { padding-top: var(--s-7); }
+  .legal h1 { font-style: italic; margin-bottom: var(--s-3); }
+  .legal h2 {
+    font-style: italic;
+    margin-top: var(--s-6);
+    margin-bottom: var(--s-3);
+    font-size: 1.625rem;
+  }
+  .legal p, .legal li { line-height: 1.75; }
+  .legal ul { padding-left: var(--s-5); margin-bottom: var(--s-4); }
+  .legal li { margin-bottom: var(--s-2); }
+</style>

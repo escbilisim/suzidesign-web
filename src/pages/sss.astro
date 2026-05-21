@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqs = [
+  {
+    q: 'Kişiye özel dikim süreci nasıl başlıyor?',
+    a: 'İletişim formundan bize ulaşırsınız. 24 saat içinde dönüş yapar, model tercihinizi, kumaş seçeneklerini ve süreci konuşuruz. Anlaştığımızda ölçü adımına geçeriz.',
+  },
+  {
+    q: 'Ölçü almak için atölyeye gelmek şart mı?',
+    a: 'Tercihen evet; kalıp uyumu için atölyede ölçü almak en isabetli yöntemdir. Şehir dışı veya yurt dışı müşteriler için uzaktan ölçü rehberi sunuyoruz; rehber adım adım, fotoğraflı.',
+  },
+  {
+    q: 'Kumaş seçimini nasıl yapıyoruz?',
+    a: 'Atölyede mevcut kumaşlarımızı birlikte inceleyebilirsiniz. Uzaktan iletişimde ise size kumaş katalogları ve örnek fotoğraflar gönderiyoruz; gerekirse küçük numune kargolayabiliyoruz.',
+  },
+  {
+    q: 'Üretim süresi ne kadar?',
+    a: 'Modele göre değişir. Standart bir abaya için ortalama 2-3 hafta, gelinlik ve abiye gibi katmanlı modeller için 4-6 hafta. Aciliyetiniz varsa görüşme sırasında belirtin, mümkün olduğunda öncelik veriyoruz.',
+  },
+  {
+    q: 'Fiyatlar neden sitede yok?',
+    a: 'Couture made-to-measure modelinde fiyat; kumaş seçimi, model karmaşıklığı, kalıp ayarı ve dikim süresine göre değişkendir. Standart fiyat listesi yayınlamak yanıltıcı olur. Görüşmemizin sonunda size özel teklif gönderiyoruz.',
+  },
+  {
+    q: 'Kargo nasıl yapılıyor?',
+    a: 'Türkiye geneli, Körfez ülkeleri (Suudi Arabistan, BAE, Kuveyt, Katar) ve Avrupa Birliği ülkelerine gönderim yapıyoruz. Kargo ücreti destinasyona göre değişir; teklifimizde net olarak belirtilir.',
+  },
+  {
+    q: 'Ödeme nasıl yapılıyor?',
+    a: 'Kişiye özel dikim için anlaşma anında ön ödeme alıyoruz; kalan bakiye teslimden önce. Ödeme yöntemlerini görüşmemizde paylaşıyoruz.',
+  },
+  {
+    q: 'İade veya değişim mümkün mü?',
+    a: 'Kişiye özel dikilen parçalarda iade kabul edemiyoruz (özel ölçü ve kumaş nedeniyle). Ancak ölçü uyumsuzluğu varsa retuş hizmeti veriyoruz; uyumu beraber sağlıyoruz.',
+  },
+  {
+    q: 'Toptan sipariş veriyor musunuz?',
+    a: 'Evet, tesettür butikleri ve online satıcılar için toptan sipariş alıyoruz. Detaylar ve süreç için Toptan sayfamızı ziyaret edin.',
+  },
+  {
+    q: 'Parçayı nasıl kullanmalı, nasıl yıkamalıyız?',
+    a: 'Her teslimde parçanız için özel bakım önerisi (yıkama, ütüleme, saklama) iletiyoruz. Genel kural: el yıkama veya soğuk hassas program, doğal kuruma.',
+  },
+];
+
+const faqPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+---
+
+<Layout
+  title="Sıkça Sorulan Sorular"
+  description="Suzi Design kişiye özel couture dikim süreci, ölçü, kumaş, fiyat, kargo, iade ve toptan sipariş hakkında sıkça sorulan sorular."
+  lang="tr"
+  schema={faqPageSchema}
+>
+  <section class="section--tight faq-hero">
+    <div class="container--narrow text-center">
+      <span class="eyebrow">Yardım</span>
+      <h1>Sıkça Sorulan Sorular</h1>
+      <p class="lead">
+        Kişiye özel dikim süreci, kumaş, fiyat ve kargo hakkında en çok aldığımız soruların yanıtları.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container--narrow">
+      <div class="faq-list">
+        {faqs.map(({ q, a }) => (
+          <details>
+            <summary>{q}</summary>
+            <p>{a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark final-cta">
+    <div class="container--narrow">
+      <span class="eyebrow">Cevap bulamadınız mı?</span>
+      <h2>Direkt bize sorun.</h2>
+      <a href="/iletisim" class="btn btn--gold">Görüşme talep et</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .text-center { text-align: center; }
+  .faq-hero { padding-top: var(--s-7); }
+  .faq-hero h1 { font-style: italic; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+  .faq-list details {
+    border-bottom: 1px solid var(--c-border);
+    padding: var(--s-4) 0;
+  }
+  .faq-list details:first-child { border-top: 1px solid var(--c-border); }
+  .faq-list summary {
+    font-family: var(--font-serif);
+    font-size: 1.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--c-primary);
+    list-style: none;
+    position: relative;
+    padding-right: var(--s-6);
+    line-height: 1.35;
+  }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after {
+    content: '+';
+    position: absolute; right: 0; top: 0;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    color: var(--c-accent-dark);
+    font-size: 1.75rem;
+    line-height: 1;
+    transition: transform var(--t);
+  }
+  .faq-list details[open] summary::after { transform: rotate(45deg); }
+  .faq-list details p {
+    margin-top: var(--s-3);
+    color: var(--c-text-muted);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  .final-cta { text-align: center; }
+  .final-cta h2 { font-style: italic; margin-bottom: var(--s-5); }
+</style>

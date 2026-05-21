@@ -1,0 +1,273 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'Hakkımızda · Suzi Design',
+  url: 'https://suzidesign.com/hakkimizda',
+  inLanguage: 'tr-TR',
+  about: {
+    '@type': 'Organization',
+    name: 'Suzi Design',
+    founder: [
+      { '@type': 'Person', name: 'Merve Köylü', jobTitle: 'Kurucu / Baş Usta' },
+      { '@type': 'Person', name: 'Hafize Köylü', jobTitle: 'Ortak' },
+      { '@type': 'Person', name: 'Sultan Köylü', jobTitle: 'Ortak' },
+    ],
+  },
+};
+---
+
+<Layout
+  title="Hakkımızda"
+  description="Suzi Design, bir anne ve iki kızının ortak emeğiyle yürüttüğü couture atölyesidir. Hikayemizi, ekibimizi ve atölyemizin felsefesini tanıyın."
+  lang="tr"
+  schema={aboutPageSchema}
+>
+  <!-- HERO with Atölye.webp background -->
+  <section class="about-hero">
+    <div class="about-hero__overlay"></div>
+    <div class="container about-hero__content">
+      <span class="eyebrow">Hakkımızda</span>
+      <h1>Bir annenin, iki kızının ortak emeği.</h1>
+      <p class="lead">
+        Suzi Design, on yıllık dikim deneyimine sahip bir annenin ve onun yolundan giderek
+        kendi sertifikalarını alan iki kızının kurduğu couture atölyesidir.
+      </p>
+    </div>
+  </section>
+
+  <!-- HİKAYEMİZ -->
+  <section class="section">
+    <div class="container--narrow story">
+      <span class="eyebrow">Hikayemiz</span>
+      <h2>Üç kadın, tek atölye.</h2>
+
+      <p>
+        Bu işe annemiz, kardeşim ve ben olmak üzere üç ortak olarak başladık.
+        Annemiz Merve Köylü, on yıl önce dikim sanatına ilk adımını attı. Dört yıl
+        boyunca eğitim aldı; abiyeden gelinliğe, günlük giyime ve özel modellere
+        kadar pek çok parçayı kendi elleriyle dikti.
+      </p>
+
+      <p>
+        Yıllar geçtikçe annemizin atölyesinde büyüdük. İğne ve ipliğin sesi, kumaşın
+        dokusu hayatımızın bir parçası oldu. Biz de bu yolda ilerlemeye karar verdik;
+        altı ay süren yoğun bir kurs ve sınav döneminin ardından, 2025 yılında kendi
+        sertifikalarımızı aldık.
+      </p>
+
+      <p>
+        Bugün üç ortak olarak (Merve, Hafize ve Sultan) Suzi Design çatısı altında her
+        parçayı sizin için titizlikle hazırlıyoruz. Hedefimiz büyük: kaliteli işlerimizi
+        daha geniş kitlelerle buluşturmak, herkesin kendi beden ölçülerine ve isteklerine
+        özel parçaları kuşanmasını sağlamak.
+      </p>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section section--cream">
+    <div class="container">
+      <header class="section-head">
+        <span class="eyebrow">Yolculuğumuz</span>
+        <h2>Bugüne kadar.</h2>
+      </header>
+
+      <ol class="timeline">
+        <li>
+          <span class="timeline__year">2016</span>
+          <h3>İlk adım</h3>
+          <p>Annemiz <strong>Merve Köylü</strong>, dikim sanatına başladı. Abiye, gelinlik ve günlük giyim üzerine yoğun bir öğrenme dönemi.</p>
+        </li>
+        <li>
+          <span class="timeline__year">2020</span>
+          <h3>İlk sertifika</h3>
+          <p>Dört yıllık eğitimin ardından Merve Köylü, ustalığını belgeleyerek sertifikasını aldı. Birçok farklı modeli kendi atölyesinde dikmeye başladı.</p>
+        </li>
+        <li>
+          <span class="timeline__year">2025</span>
+          <h3>Yeni nesil</h3>
+          <p><strong>Hafize</strong> ve <strong>Sultan Köylü</strong>, altı aylık yoğun eğitim ve sınav sürecinin ardından sertifikalarını aldı. Atölyeye resmi ortak olarak katıldılar.</p>
+        </li>
+        <li>
+          <span class="timeline__year">2026</span>
+          <h3>Suzi Design</h3>
+          <p>Üç ortak, tek atölye. Couture made-to-measure odaklı yeni dönem başladı.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- HEDEFİMİZ -->
+  <section class="section">
+    <div class="container--narrow goal">
+      <span class="eyebrow">Hedefimiz</span>
+      <blockquote>
+        Büyük kitlelere ulaşıp kaliteli işler ortaya çıkarmak; müşterilerimizin
+        isteklerine özel, kendi beden ölçülerine uygun modeller dikerek onları
+        memnun etmek.
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ATÖLYE FELSEFE -->
+  <section class="section section--cream">
+    <div class="container--narrow">
+      <span class="eyebrow">Atölyemiz</span>
+      <h2 style="font-style:italic">Couture, mağaza rafından geçmeyen parça demektir.</h2>
+      <p>
+        Atölyemizde fabrikasyon üretim yok. Her parça, müşterinin beden ölçülerine ve
+        kişisel tercihlerine göre, sıfırdan dikilir. Kumaş seçimini sizinle birlikte
+        yaparız; kalıbı sizin için açarız; dikimi tek bir elden çıkarırız.
+      </p>
+      <p>
+        Bu yüzden bir parçanın atölyeden çıkışı ortalama 2-3 hafta; gelinlik ve abiye
+        gibi katmanlı modellerde 4-6 hafta sürer. Hızlı değil; yerli yerinde.
+      </p>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section section--dark final-cta">
+    <div class="container--narrow">
+      <span class="eyebrow">Bizi tanıdınız</span>
+      <h2>Şimdi sizin parçanızı konuşalım.</h2>
+      <a href="/iletisim" class="btn btn--gold">Görüşme talep et</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero with background */
+  .about-hero {
+    position: relative;
+    min-height: 70vh;
+    display: grid;
+    place-items: end start;
+    color: var(--c-white);
+    background-image: image-set(
+      url('/images/atolye-1600w.webp') 1x,
+      url('/images/atolye-2000w.webp') 1.5x
+    );
+    background-image: -webkit-image-set(
+      url('/images/atolye-1600w.webp') 1x,
+      url('/images/atolye-2000w.webp') 1.5x
+    );
+    background-color: #1a1a1a; /* fallback while bg loads */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: var(--s-7) 0 var(--s-8);
+  }
+  @media (max-width: 768px) {
+    .about-hero {
+      background-image: image-set(
+        url('/images/atolye-800w.webp') 1x,
+        url('/images/atolye-1200w.webp') 2x
+      );
+    }
+  }
+  .about-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0.30) 0%, rgba(10,10,10,0.75) 100%);
+  }
+  .about-hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+  }
+  .about-hero h1 {
+    color: var(--c-white);
+    font-style: italic;
+    margin-bottom: var(--s-4);
+  }
+  .about-hero .eyebrow { color: var(--c-accent-light); }
+  .about-hero .lead { color: var(--c-text-light); }
+
+  /* Story */
+  .story h2 { font-style: italic; }
+  .story p {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    margin-bottom: var(--s-4);
+  }
+  .story p:first-of-type::first-letter {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    font-weight: 600;
+    float: left;
+    line-height: 0.85;
+    padding-right: var(--s-3);
+    padding-top: var(--s-1);
+    color: var(--c-accent-dark);
+  }
+
+  /* Section head */
+  .section-head { text-align: center; margin-bottom: var(--s-6); }
+  .section-head h2 { font-style: italic; }
+
+  /* Timeline */
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 800px;
+    margin-inline: auto;
+    counter-reset: tl;
+  }
+  .timeline li {
+    position: relative;
+    padding: var(--s-5) 0 var(--s-5) var(--s-7);
+    border-left: 1px solid var(--c-accent);
+    margin-left: var(--s-4);
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: var(--s-5);
+    width: 15px;
+    height: 15px;
+    background: var(--c-accent);
+    border-radius: 50%;
+    border: 3px solid var(--c-cream);
+  }
+  .timeline__year {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--c-accent-dark);
+    line-height: 1;
+    margin-bottom: var(--s-2);
+  }
+  .timeline h3 { margin-bottom: var(--s-2); }
+  .timeline p { color: var(--c-text-muted); margin: 0; }
+
+  /* Goal blockquote */
+  .goal blockquote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.4;
+    color: var(--c-primary);
+    border-left: 3px solid var(--c-accent);
+    margin: 0;
+    padding-left: var(--s-5);
+  }
+
+  /* Final CTA */
+  .final-cta { text-align: center; }
+  .final-cta h2 { font-style: italic; max-width: 720px; margin-inline: auto var(--s-5); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .about-hero { min-height: 60vh; padding: var(--s-6) 0 var(--s-7); }
+    .timeline li { padding-left: var(--s-5); }
+    .timeline__year { font-size: 1.625rem; }
+  }
+</style>

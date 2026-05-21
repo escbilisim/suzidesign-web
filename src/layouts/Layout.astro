@@ -1,0 +1,131 @@
+---
+/**
+ * Suzi Design - Master Layout
+ * - <html lang> doğru dilde
+ * - Self-host font preload (C5)
+ * - OG / Twitter meta
+ * - hreflang TR/EN (B3)
+ * - Schema.org Organization JSON-LD
+ * - Skip link (a11y)
+ */
+
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: 'tr' | 'en';
+  /** OG image URL (absolute or root-relative). Default: /og/default.png */
+  ogImage?: string;
+  /** canonical absolute URL. Eğer geçilmezse Astro.url üzerinden hesaplanır. */
+  canonical?: string;
+  /** Schema.org JSON-LD ekstra (sayfa-özgü, örn. FAQPage, AboutPage) */
+  schema?: object | object[];
+}
+
+const {
+  title,
+  description,
+  lang = 'tr',
+  ogImage = '/images/og-default.png',
+  canonical,
+  schema,
+} = Astro.props;
+
+const siteUrl = 'https://suzidesign.com';
+const currentPath = Astro.url.pathname;
+const canonicalUrl = canonical ?? new URL(currentPath, siteUrl).toString();
+const ogImageAbs = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).toString();
+
+// hreflang alternatif: TR ↔ EN
+const trPath = lang === 'en' ? currentPath.replace(/^\/en/, '') || '/' : currentPath;
+const enPath = lang === 'tr' ? '/en' + (currentPath === '/' ? '' : currentPath) : currentPath;
+
+const titleFull = title.includes('Suzi Design') ? title : `${title} · Suzi Design`;
+
+// Base Organization schema (her sayfada)
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Suzi Design',
+  url: siteUrl,
+  logo: `${siteUrl}/images/logo.png`,
+  description: 'Premium kumaş ve el işçiliğiyle, kişiye özel kalıplarla dikilen couture tesettür giyim; bireysel ve toptan.',
+  sameAs: ['https://instagram.com/suzidesignn'],
+  founder: [
+    { '@type': 'Person', name: 'Merve Köylü' },
+    { '@type': 'Person', name: 'Hafize Köylü' },
+    { '@type': 'Person', name: 'Sultan Köylü' },
+  ],
+  foundingDate: '2026',
+  inLanguage: [lang === 'tr' ? 'tr-TR' : 'en-US'],
+};
+
+const schemaList = [orgSchema, ...(Array.isArray(schema) ? schema : schema ? [schema] : [])];
+---
+
+<!doctype html>
+<html lang={lang === 'tr' ? 'tr-TR' : 'en-US'}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="theme-color" content="#0A0A0A" />
+  <meta name="color-scheme" content="light" />
+
+  <title>{titleFull}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- hreflang TR ↔ EN (B3) -->
+  <link rel="alternate" hreflang="tr-TR" href={new URL(trPath, siteUrl).toString()} />
+  <link rel="alternate" hreflang="en"    href={new URL(enPath, siteUrl).toString()} />
+  <link rel="alternate" hreflang="x-default" href={new URL(trPath, siteUrl).toString()} />
+
+  <!-- Font preload (C5) -->
+  <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/cormorant-garamond-600.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192" />
+  <link rel="icon" type="image/png" href="/icon-512.png" sizes="512x512" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={titleFull} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImageAbs} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content="Suzi Design" />
+  <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_US'} />
+  <meta property="og:locale:alternate" content={lang === 'tr' ? 'en_US' : 'tr_TR'} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={titleFull} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageAbs} />
+
+  <!-- Schema.org JSON-LD -->
+  {schemaList.map(s => (
+    <script type="application/ld+json" set:html={JSON.stringify(s)} />
+  ))}
+</head>
+<body>
+  <a href="#main" class="skip-link">
+    {lang === 'tr' ? 'Ana içeriğe geç' : 'Skip to main content'}
+  </a>
+
+  <Header lang={lang} currentPath={currentPath} />
+
+  <main id="main">
+    <slot />
+  </main>
+
+  <Footer lang={lang} />
+</body>
+</html>

@@ -1,0 +1,208 @@
+---
+/**
+ * Suzi Design - Footer
+ * - Logo + tagline
+ * - Hızlı erişim linkleri
+ * - Sosyal medya (Instagram)
+ * - **mailto YOK (C4): sadece form linki**
+ */
+
+interface Props {
+  lang?: 'tr' | 'en';
+}
+
+const { lang = 'tr' } = Astro.props;
+const base = lang === 'tr' ? '' : '/en';
+
+const t = {
+  tr: {
+    tagline: 'Couture, kişiye özel.',
+    quickLinks: 'Hızlı Erişim',
+    legal: 'Yasal',
+    follow: 'Takip Edin',
+    home: 'Ana Sayfa',
+    products: 'Ürünler',
+    wholesale: 'Toptan',
+    about: 'Hakkımızda',
+    faq: 'SSS',
+    contact: 'İletişim',
+    privacy: 'Gizlilik',
+    cookies: 'Çerezler',
+    instagram: 'Instagram',
+    rights: 'Tüm hakları saklıdır.',
+  },
+  en: {
+    tagline: 'Couture, made for you.',
+    quickLinks: 'Quick Links',
+    legal: 'Legal',
+    follow: 'Follow Us',
+    home: 'Home',
+    products: 'Products',
+    wholesale: 'Wholesale',
+    about: 'About',
+    faq: 'FAQ',
+    contact: 'Contact',
+    privacy: 'Privacy',
+    cookies: 'Cookies',
+    instagram: 'Instagram',
+    rights: 'All rights reserved.',
+  },
+}[lang];
+
+const links = lang === 'tr' ? {
+  products: '/urunler', wholesale: '/toptan', about: '/hakkimizda',
+  faq: '/sss', contact: '/iletisim', privacy: '/gizlilik', cookies: '/cerezler',
+} : {
+  products: '/en/products', wholesale: '/en/wholesale', about: '/en/about',
+  faq: '/en/faq', contact: '/en/contact', privacy: '/en/privacy', cookies: '/en/cookies',
+};
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer" role="contentinfo">
+  <div class="container site-footer__top">
+    <div class="site-footer__brand">
+      <img
+        src="/images/logo-128w.webp"
+        srcset="/images/logo-128w.webp 128w, /images/logo-192w.webp 192w"
+        sizes="72px"
+        alt="Suzi Design"
+        width="72" height="72"
+        loading="lazy"
+        decoding="async"
+      />
+      <p class="site-footer__tagline">{t.tagline}</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label={t.quickLinks}>
+      <h5>{t.quickLinks}</h5>
+      <ul>
+        <li><a href={lang === 'tr' ? '/' : '/en/'}>{t.home}</a></li>
+        <li><a href={links.products}>{t.products}</a></li>
+        <li><a href={links.wholesale}>{t.wholesale}</a></li>
+        <li><a href={links.about}>{t.about}</a></li>
+        <li><a href={links.faq}>{t.faq}</a></li>
+        <li><a href={links.contact}>{t.contact}</a></li>
+      </ul>
+    </nav>
+
+    <nav class="site-footer__nav" aria-label={t.legal}>
+      <h5>{t.legal}</h5>
+      <ul>
+        <li><a href={links.privacy}>{t.privacy}</a></li>
+        <li><a href={links.cookies}>{t.cookies}</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-footer__social">
+      <h5>{t.follow}</h5>
+      <a href="https://instagram.com/suzidesignn" target="_blank" rel="noopener noreferrer" aria-label="Instagram @suzidesignn" class="site-footer__social-link">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.22.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.17.42.37 1.05.42 2.22.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.42 2.22a3.7 3.7 0 0 1-.9 1.38c-.42.42-.82.68-1.38.9-.42.17-1.05.37-2.22.42-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.22-.42a3.7 3.7 0 0 1-1.38-.9c-.42-.42-.68-.82-.9-1.38-.17-.42-.37-1.05-.42-2.22C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.42-2.22.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.17 1.05-.37 2.22-.42C8.4 2.2 8.8 2.2 12 2.2zm0 1.6c-3.16 0-3.53 0-4.77.07-1.07.05-1.65.23-2.04.38a3.4 3.4 0 0 0-1.26.82c-.38.38-.62.74-.82 1.26-.15.4-.33.97-.38 2.04C2.66 9.47 2.66 9.84 2.66 13s0 3.53.07 4.77c.05 1.07.23 1.65.38 2.04.2.52.44.88.82 1.26.38.38.74.62 1.26.82.4.15.97.33 2.04.38 1.24.07 1.61.07 4.77.07s3.53 0 4.77-.07c1.07-.05 1.65-.23 2.04-.38a3.4 3.4 0 0 0 1.26-.82c.38-.38.62-.74.82-1.26.15-.4.33-.97.38-2.04.07-1.24.07-1.61.07-4.77s0-3.53-.07-4.77c-.05-1.07-.23-1.65-.38-2.04a3.4 3.4 0 0 0-.82-1.26c-.38-.38-.74-.62-1.26-.82-.4-.15-.97-.33-2.04-.38C15.53 3.86 15.16 3.86 12 3.86zm0 2.83a5.31 5.31 0 1 1 0 10.62 5.31 5.31 0 0 1 0-10.62zm0 1.7a3.61 3.61 0 1 0 0 7.22 3.61 3.61 0 0 0 0-7.22zm5.5-2.94a1.24 1.24 0 1 1 0 2.48 1.24 1.24 0 0 1 0-2.48z" />
+        </svg>
+        <span>{t.instagram}</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>&copy; {year} Suzi Design. {t.rights}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--c-primary);
+    color: var(--c-text-light);
+    padding-block: var(--s-7) var(--s-4);
+    margin-top: var(--s-8);
+  }
+
+  .site-footer__top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: var(--s-6);
+    padding-bottom: var(--s-6);
+    border-bottom: 1px solid var(--c-border-light);
+  }
+
+  .site-footer__brand img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    background: var(--c-white);
+    border-radius: 50%;
+    padding: 0;
+    margin-bottom: var(--s-3);
+  }
+  .site-footer__tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.125rem;
+    color: var(--c-accent-light);
+    margin: 0;
+    max-width: 280px;
+    line-height: 1.4;
+  }
+
+  .site-footer h5 {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin: 0 0 var(--s-3);
+  }
+
+  .site-footer__nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .site-footer__nav a {
+    color: var(--c-text-light);
+    font-size: 0.9375rem;
+    transition: color var(--t-fast);
+  }
+  .site-footer__nav a:hover { color: var(--c-accent); }
+
+  .site-footer__social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    color: var(--c-text-light);
+    font-size: 0.9375rem;
+    transition: color var(--t-fast);
+  }
+  .site-footer__social-link:hover { color: var(--c-accent); }
+  .site-footer__social-link svg { transition: transform var(--t); }
+  .site-footer__social-link:hover svg { transform: scale(1.1); }
+
+  .site-footer__bottom {
+    padding-top: var(--s-4);
+    text-align: center;
+  }
+  .site-footer__bottom p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--c-text-light-muted);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 768px) {
+    .site-footer__top {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-5);
+    }
+    .site-footer__brand { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 480px) {
+    .site-footer__top { grid-template-columns: 1fr; }
+  }
+</style>

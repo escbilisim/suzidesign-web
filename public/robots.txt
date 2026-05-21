@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://suzidesign.com/sitemap-index.xml
