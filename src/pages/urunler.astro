@@ -19,37 +19,40 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <!-- CURATOR PLACEHOLDER -->
   <!--
-    Sprint 2.3'te buraya Curator.io feed embed kodu gelecek.
-    Format (örnek):
-      <div id="curator-feed-default-feed-layout"><a href="https://curator.io" target="_blank">...</a></div>
-      <script type="text/javascript">
-        (function(){
-          var i,e,d=document,s="script";i=d.createElement("script");i.async=1;
-          i.src="https://cdn.curator.io/published/<UUID>.js";
-          e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i,e);
-        })();
-      </script>
+    Curator.io feed embed (Instagram @suzidesignn)
+    Feed UUID: c451b584-0bb3-4fca-88a4-961e64678c76
     Locked rules B2: Curator.io 3rd-party JS sadece bu sayfada yüklenir.
   -->
   <section class="section">
-    <div class="container">
-      <div id="curator-feed-default-feed-layout" class="curator-placeholder">
-        <div class="curator-placeholder__inner">
-          <span class="eyebrow">Yakında</span>
-          <h3 style="font-style:italic">Instagram feed bağlantısı</h3>
+    <div class="container curator-wrap">
+      <div id="curator-feed-default-feed-layout">
+        <a href="https://curator.io" target="_blank" rel="noopener noreferrer" class="crt-logo crt-tag">Powered by Curator.io</a>
+      </div>
+
+      <noscript>
+        <div class="curator-fallback">
           <p>
-            Curator.io üzerinden Instagram <a href="https://instagram.com/suzidesignn" target="_blank" rel="noopener noreferrer">@suzidesignn</a>
-            feed'i buraya yansıyacak. Hesap doğrulama sonrası aktif olacak.
-          </p>
-          <p class="curator-placeholder__hint">
-            (Bu kısım Sprint 2.3 ve Curator hesap doğrulamasından sonra otomatik dolar.)
+            Ürün galerimizi görüntülemek için JavaScript'i etkinleştirin ya da Instagram hesabımızı
+            ziyaret edin: <a href="https://instagram.com/suzidesignn" target="_blank" rel="noopener noreferrer">@suzidesignn</a>
           </p>
         </div>
-      </div>
+      </noscript>
     </div>
   </section>
+
+  <script is:inline>
+    /* curator-feed-default-feed-layout */
+    (function () {
+      var i, e, d = document, s = 'script';
+      i = d.createElement('script');
+      i.async = 1;
+      i.charset = 'UTF-8';
+      i.src = 'https://cdn.curator.io/published/c451b584-0bb3-4fca-88a4-961e64678c76.js';
+      e = d.getElementsByTagName(s)[0];
+      e.parentNode.insertBefore(i, e);
+    })();
+  </script>
 
   <!-- FINAL CTA -->
   <section class="section section--dark final-cta">
@@ -67,22 +70,27 @@ import Layout from '../layouts/Layout.astro';
   .products-hero { padding-top: var(--s-7); padding-bottom: var(--s-5); }
   .products-hero h1 { font-style: italic; }
 
-  .curator-placeholder {
-    min-height: 400px;
-    display: grid;
-    place-items: center;
-    background: var(--c-cream);
-    border: 2px dashed var(--c-accent);
-    border-radius: var(--r-card);
-    padding: var(--s-6);
+  /* Curator wrap: yükleme sırasında min-height ile CLS önlenir */
+  .curator-wrap {
+    min-height: 480px;
   }
-  .curator-placeholder__inner { text-align: center; max-width: 480px; }
-  .curator-placeholder__inner h3 { color: var(--c-accent-dark); }
-  .curator-placeholder__hint {
-    font-size: 0.875rem;
+  #curator-feed-default-feed-layout {
+    min-height: 480px;
+  }
+  .curator-fallback {
+    text-align: center;
+    padding: var(--s-6);
+    background: var(--c-cream);
+    border-radius: var(--r-card);
     color: var(--c-text-muted);
-    margin-top: var(--s-4);
-    font-style: italic;
+  }
+  /* Curator'ın kendi yazısı (free plan zorunluluğu): markamızla uyumlu hale getir */
+  .crt-logo.crt-tag {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--c-text-muted) !important;
+    opacity: 0.6;
   }
 
   .final-cta { text-align: center; }
