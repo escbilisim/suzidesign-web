@@ -77,6 +77,21 @@ import Layout from '../layouts/Layout.astro';
   #curator-feed-default-feed-layout {
     min-height: 480px;
   }
+
+  /* Curator.io grid spacing: SADECE mobilde.
+     Masaüstü default Curator stilini korur (sıkışık grid). */
+  @media (max-width: 768px) {
+    :global(#curator-feed-default-feed-layout .crt-feed) {
+      gap: 8px !important;
+    }
+    :global(#curator-feed-default-feed-layout .crt-post),
+    :global(#curator-feed-default-feed-layout .crt-feed-item),
+    :global(#curator-feed-default-feed-layout .crt-grid-post),
+    :global(#curator-feed-default-feed-layout [class*="crt-post"]) {
+      padding: 4px !important;
+      box-sizing: border-box !important;
+    }
+  }
   .curator-fallback {
     text-align: center;
     padding: var(--s-6);
