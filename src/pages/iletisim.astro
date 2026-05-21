@@ -87,6 +87,32 @@ const contactPageSchema = {
         <h3 style="font-style:italic">Diğer yollar</h3>
 
         <div class="contact-side__item">
+          <h4>Telefon</h4>
+          <p>
+            <a href="tel:+905352082560" class="contact-link">
+              <svg class="contact-link__icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.2a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z" />
+              </svg>
+              +90 535 208 25 60
+            </a>
+          </p>
+          <p class="contact-side__hint">Hafta içi 10:00-18:00 arası.</p>
+        </div>
+
+        <div class="contact-side__item">
+          <h4>WhatsApp</h4>
+          <p>
+            <a href="https://wa.me/905352082560" target="_blank" rel="noopener noreferrer" class="contact-link contact-link--whatsapp">
+              <svg class="contact-link__icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                <path d="M17.5 14.4c-.3-.1-1.7-.85-2-.95-.27-.1-.46-.15-.65.15-.2.3-.75.95-.92 1.14-.17.2-.34.22-.63.08-.3-.15-1.25-.46-2.38-1.47a8.9 8.9 0 0 1-1.64-2.04c-.17-.3-.02-.46.13-.6.13-.13.3-.34.45-.5.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.65-1.57-.89-2.15-.24-.57-.48-.49-.65-.5l-.55-.01c-.2 0-.5.07-.77.37-.27.3-1.02 1-1.02 2.44 0 1.43 1.05 2.82 1.2 3.02.15.2 2.07 3.17 5.02 4.44.7.3 1.25.48 1.68.62.7.22 1.34.19 1.85.12.56-.08 1.7-.7 1.94-1.37.24-.67.24-1.25.17-1.37-.07-.12-.27-.2-.57-.34zM12 2A10 10 0 0 0 2 12c0 1.76.46 3.42 1.27 4.86L2 22l5.32-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.07-1.12l-.29-.18-3.16.83.85-3.08-.19-.3A8 8 0 1 1 12 20z" />
+              </svg>
+              +90 535 208 25 60
+            </a>
+          </p>
+          <p class="contact-side__hint">Mesaj atın, en kısa sürede dönüş yapalım.</p>
+        </div>
+
+        <div class="contact-side__item">
           <h4>Instagram</h4>
           <p>
             <a href="https://instagram.com/suzidesignn" target="_blank" rel="noopener noreferrer">@suzidesignn</a>
@@ -245,6 +271,24 @@ const contactPageSchema = {
     font-size: 0.875rem;
     color: var(--c-text-muted);
   }
+
+  /* Tap-to-call + WhatsApp links */
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--t-fast);
+  }
+  .contact-link__icon {
+    flex-shrink: 0;
+    color: var(--c-accent-dark);
+    transition: transform var(--t);
+  }
+  .contact-link:hover .contact-link__icon { transform: scale(1.1); }
+
+  .contact-link--whatsapp:hover { color: #25D366; }
+  .contact-link--whatsapp:hover .contact-link__icon { color: #25D366; }
 
   @media (max-width: 768px) {
     .contact-grid { grid-template-columns: 1fr; gap: var(--s-5); }
