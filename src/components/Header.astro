@@ -81,8 +81,8 @@ const homeHref = lang === 'tr' ? '/' : '/en/';
     <a href={homeHref} class="site-header__logo" aria-label={lang === 'tr' ? 'Suzi Design ana sayfa' : 'Suzi Design home'}>
       <img
         src="/images/logo-160w.webp"
-        srcset="/images/logo-80w.webp 80w, /images/logo-128w.webp 128w, /images/logo-160w.webp 160w, /images/logo-192w.webp 192w"
-        sizes="(max-width: 600px) 56px, 80px"
+        srcset="/images/logo-128w.webp 128w, /images/logo-160w.webp 160w, /images/logo-192w.webp 192w, /images/logo-256w.webp 256w"
+        sizes="(max-width: 900px) 60px, 80px"
         alt="Suzi Design"
         width="80" height="80"
         loading="eager"
@@ -203,8 +203,8 @@ const homeHref = lang === 'tr' ? '/' : '/en/';
     flex-shrink: 0;
   }
   .site-header__logo img {
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
     transition: transform var(--t);
   }
@@ -272,7 +272,8 @@ const homeHref = lang === 'tr' ? '/' : '/en/';
     .site-header__inner { grid-template-columns: 1fr auto 1fr; }
     .site-nav { display: none; }
     .site-header__toggle { display: block; }
-    .site-header__inner { position: relative; }
+    .site-header__inner { position: relative; min-height: 78px; }
+    .site-header__logo img { width: 60px; height: 60px; }
     .mobile-nav[aria-hidden="false"] { display: block; }
   }
 </style>

@@ -1,7 +1,7 @@
 /* TEAM */
 
 Brand:    Suzi Design
-Atölye:   Merve Köylü, Hafize Köylü, Sultan Köylü
+Atölye:   Hatice Köylü, Merve Köylü, Sultan Köylü
 Site:     https://suzidesign.com
 Instagram: @suzidesignn
 
